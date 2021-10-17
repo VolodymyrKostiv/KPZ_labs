@@ -48,7 +48,7 @@ namespace Task3
 
             string resultTime = await Task.Run(() => WriteNumbersIntoFile(filePath));
 
-            Console.WriteLine($"{filePath} finished in {resultTime}");
+            Console.WriteLine($"{filePath} finished in {resultTime} using thread {Thread.CurrentThread.ManagedThreadId}");
         }
 
         static string WriteNumbersIntoFile(string filePath)
@@ -70,22 +70,20 @@ namespace Task3
             return stopWatch.Elapsed.ToString();
         }
 
-        static void WritePewdsSong()
-        {
-            Console.WriteLine("Started writing pewd's song\n");
-
-            for (int i = 0; i < pewdsSong.Length; ++i)
-            {
-                Console.Write(pewdsSong[i]);
-                Thread.Sleep(100);
-            }
-
-            Console.WriteLine("\nFinished writing pewd's song");
-        }
-
         static async Task WritePewdsSongAsync()
         {
-            await Task.Run(() => WritePewdsSong());
+            await Task.Run(() =>
+            {
+                Console.WriteLine("Started writing pewd's song\n");
+
+                for (int i = 0; i < pewdsSong.Length; ++i)
+                {
+                    Console.Write(pewdsSong[i]);
+                    Thread.Sleep(100);
+                }
+
+                Console.WriteLine("\nFinished writing pewd's song");
+            });
         }
 
         #region
