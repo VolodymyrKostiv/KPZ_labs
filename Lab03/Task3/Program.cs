@@ -62,7 +62,8 @@ namespace Task3
                 {
                     Thread.Sleep(5);
                     int numberToWrite = rand.Next(minRandom, maxRandom);
-                    sw.WriteLine($"{i} - {numberToWrite}");
+                    //sw.WriteLine($"{i} - {numberToWrite}");
+                    sw.WriteLineAsync($"{i} - {numberToWrite}");
                 }
             }
 

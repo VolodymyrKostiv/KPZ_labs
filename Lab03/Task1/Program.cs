@@ -13,7 +13,7 @@ namespace Task1
             LabManager lab = new LabManager();
 
             //lab.PrintArray();
-
+            lab.CalculateUsingTask();
             lab.CalculateUsingPLINQ();
             lab.CalculateUsingParallel();
             lab.CalculateUsingThreadPool();
@@ -30,6 +30,7 @@ namespace Task1
             }
 
             lab.PrintTimeSpans();
+            Console.ReadLine();
         }
     }
 }
