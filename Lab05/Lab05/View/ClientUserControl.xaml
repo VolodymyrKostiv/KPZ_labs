@@ -10,6 +10,7 @@
 
     <UserControl.Resources>
         <Converter:ImagePathConverter x:Key="my:ImagePathConverter" />
+        <Converter:MultiTextClientConverter x:Key="my:ClientConverter" />
     </UserControl.Resources>
 
     <Grid ShowGridLines="True">
@@ -36,21 +37,27 @@
             <Label Content="First name" Width="Auto" />
             <TextBox  x:Name="FirstNameBlock" Width="100" />
             <Label Content="Last name" />
-            <TextBox Width="100" />
+            <TextBox x:Name="LastNameBlock" Width="100"  />
             <Label Content="Gender" Width="Auto" />
-            <ComboBox Width="Auto">
-                <ComboBoxItem IsSelected="True">
+            <ComboBox x:Name="GenderBlock" Width="Auto" >
+                <ComboBoxItem IsSelected="True" >
                     <TextBlock>Male</TextBlock>
                 </ComboBoxItem>
                 <ComboBoxItem>
                     <TextBlock>Female</TextBlock>
                 </ComboBoxItem>
                 <ComboBoxItem>
-                    <TextBlock>IL_2</TextBlock>
+                    <TextBlock>IL_2_Sturmovik</TextBlock>
                 </ComboBoxItem>
             </ComboBox>
-            <Button Content="Add" Command="{Binding AddClient}" CommandParameter="{Binding Source={x:Reference FirstNameBlock}, Path=Text}">
-                
+            <Button Content="Add" Command="{Binding AddClient}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource my:ClientConverter}">
+                        <Binding ElementName="FirstNameBlock" Path="Text" />
+                        <Binding ElementName="LastNameBlock" Path="Text" />
+                        <Binding ElementName="GenderBlock" Path="SelectedIndex" />
+                    </MultiBinding>
+                </Button.CommandParameter>
             </Button>
         </StackPanel>
     </Grid>

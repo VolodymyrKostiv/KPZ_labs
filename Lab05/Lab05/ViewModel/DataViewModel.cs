@@ -18,7 +18,8 @@ namespace Lab05.ViewModel
 
         public void ControlAdd(object args)
         {
-            Clients.Add(new Client() { FirstName = "A", LastName = args.ToString(), Gender = Gender.MALE});
+            if (args != null)
+                Clients.Add((Client)args);
         }
 
         public void ControlVisibility(object args)

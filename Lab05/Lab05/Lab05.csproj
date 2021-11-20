@@ -62,6 +62,7 @@
     <Compile Include="Automapper\Mapping.cs" />
     <Compile Include="Command\AddCommand.cs" />
     <Compile Include="Converter\ImagePathConverter.cs" />
+    <Compile Include="Converter\MultiTextClientConverter.cs" />
     <Compile Include="Converter\VisibilityConverter.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\DataModel.cs" />
