@@ -1,44 +1,71 @@
-﻿using Lab05.Model;
-using System;
-using System.Collections.Generic;
+﻿using Lab05.Command;
+using Lab05.Model;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Lab05.ViewModel
 {
-    class DataViewModel : ViewModelBase
+    class DataViewModel : BaseViewModel
     {
-        private ObservableCollection<Client> clients;
-        public ObservableCollection<Client> Clients
+        public DataViewModel()
         {
-            get { return clients; }
+            SetControlVisibility = new Command(ControlVisibility);
+            AddClient = new AddCommand(ControlAdd);
+        }
+
+        public ICommand SetControlVisibility { get; set; }
+        public ICommand AddClient { get; set; }
+
+        public void ControlAdd(object args)
+        {
+            Clients.Add(new Client() { FirstName = "A", LastName = args.ToString(), Gender = Gender.MALE});
+        }
+
+        public void ControlVisibility(object args)
+        {
+            VisibleControl = args.ToString();
+        }
+
+        private string _visibleControl = "Clients";
+        public string VisibleControl
+        {
+            get => _visibleControl;
             set
             {
-                clients = value;
+                _visibleControl = value;
+                OnPropertyChanged(nameof(VisibleControl));
+            }
+        }
+
+        private ObservableCollection<Client> _clients;
+        public ObservableCollection<Client> Clients
+        {
+            get => _clients; 
+            set
+            {
+                _clients = value;
                 OnPropertyChanged(nameof(Clients));
             }
         }
 
-        private ObservableCollection<Order> orders;
+        private ObservableCollection<Order> _orders;
         public ObservableCollection<Order> Orders 
         {
-            get { return orders; }
+            get => _orders;
             set
             {
-                orders = value;
+                _orders = value;
                 OnPropertyChanged(nameof(Orders));
             }
         }
 
-        private ObservableCollection<Product> products;
+        private ObservableCollection<Product> _products;
         public ObservableCollection<Product> Products 
         {
-            get { return products; }
+            get => _products;
             set
             {
-                products = value;
+                _products = value;
                 OnPropertyChanged(nameof(Products));
             }
         }

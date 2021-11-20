@@ -1,0 +1,55 @@
+﻿<Window x:Class="Lab05.View.PlumbingDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab05.View" 
+        xmlns:Converter="clr-namespace:Lab05.Converter"
+        mc:Ignorable="d"
+        Title="PlumbingDialog" Height="450" Width="450" ResizeMode="NoResize">
+    <Window.Resources>
+        <Converter:ImagePathConverter x:Key="my:ImagePathConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image Source="{Binding Converter={StaticResource my:ImagePathConverter}}" 
+               Grid.Column="1" Grid.Row="1" Name="AnimatedImage" Width="200" Height="200">
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="Image.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="AnimatedImage"
+                                Storyboard.TargetProperty="(Image.Width)"
+                                To="50" Duration="0:0:3" AutoReverse="True" 
+                                RepeatBehavior="Forever">
+                                <DoubleAnimation.EasingFunction>
+                                    <ElasticEase EasingMode="EaseInOut" Oscillations="2" Springiness="4" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                            <DoubleAnimation
+                                Storyboard.TargetName="AnimatedImage"
+                                Storyboard.TargetProperty="(Image.Height)"
+                                To="50" Duration="0:0:3" AutoReverse="True" 
+                                RepeatBehavior="Forever">
+                                <DoubleAnimation.EasingFunction>
+                                    <ElasticEase EasingMode="EaseInOut" Oscillations="2" Springiness="4" />
+                                </DoubleAnimation.EasingFunction>
+                            </DoubleAnimation>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+    </Grid>
+</Window>

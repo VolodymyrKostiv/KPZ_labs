@@ -1,66 +1,61 @@
 ﻿using Lab05.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab05.ViewModel
 {
-    class OrderViewModel : ViewModelBase
+    class OrderViewModel : BaseViewModel
     {
-        public Order Order;
-        public OrderViewModel(Order order)
-        {
-            Order = order;
-        }
-
+        private Client _client;
         public Client OrderClient
         {
-            get { return Order.OrderClient; }
+            get { return _client; }
             set
             {
-                Order.OrderClient = value;
+                _client = value;
                 OnPropertyChanged(nameof(OrderClient));
             }
         }
 
+        private Product _product;
         public Product OrderProduct
         {
-            get { return Order.OrderProduct; }
+            get { return _product; }
             set
             {
-                Order.OrderProduct = value;
+                _product = value;
                 OnPropertyChanged(nameof(OrderProduct));
             }
         }
 
+        private int _amount;
         public int ProductAmount
         {
-            get { return Order.ProductAmount; }
+            get { return _amount; }
             set
             {
-                Order.ProductAmount = value;
+                _amount = value;
                 OnPropertyChanged(nameof(ProductAmount));
             }
         }
 
+        private int _totalPrice;
         public int TotalPrice
         {
-            get { return Order.TotalPrice; }
+            get { return _totalPrice; }
             set
             {
-                Order.TotalPrice = value;
+                _totalPrice = value;
                 OnPropertyChanged(nameof(TotalPrice));
             }
         }
 
+        private DateTime _dateTime;
         public DateTime OrderDateTime 
         {
-            get { return Order.OrderDateTime; } 
+            get { return _dateTime; } 
             set
             {
-                Order.OrderDateTime = value;
+                _dateTime = value;
                 OnPropertyChanged(nameof(OrderDateTime));
             }
         }

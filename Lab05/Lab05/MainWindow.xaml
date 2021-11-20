@@ -3,50 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lab05"
+        xmlns:local="clr-namespace:Lab05" 
+        xmlns:Converter="clr-namespace:Lab05.Converter"
+        xmlns:view="clr-namespace:Lab05.View"
+        xmlns:viewmodel="clr-namespace:Lab05.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Title="MainWindow" Height="400" Width="700">
+    <Window.Resources>
+        <Converter:VisibilityConverter x:Key="my:VisibilityConverter" />
+        <Converter:ImagePathConverter x:Key="my:ImagePathConverter" />
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-
-        <Image Source="seller.png" Grid.Column="1" Grid.Row="1" Name="AnimatedWidthButton"
-          Width="50" Height="50">
-            <Image.Triggers>
-                <EventTrigger RoutedEvent="Button.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation
-                                Storyboard.TargetName="AnimatedWidthButton"
-                                Storyboard.TargetProperty="(Button.Width)"
-                                To="100" Duration="0:0:5" AutoReverse="True" 
-                                RepeatBehavior="Forever">   
-                                <DoubleAnimation.EasingFunction>
-                                    <ElasticEase EasingMode="EaseInOut" Oscillations="3" Springiness="6" />
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                            <DoubleAnimation
-                                Storyboard.TargetName="AnimatedWidthButton"
-                                Storyboard.TargetProperty="(Button.Height)"
-                                To="100" Duration="0:0:5" AutoReverse="True" 
-                                RepeatBehavior="Forever" >
-                                <DoubleAnimation.EasingFunction>
-                                    <ElasticEase EasingMode="EaseInOut" Oscillations="3" Springiness="6" />
-                                </DoubleAnimation.EasingFunction>
-                            </DoubleAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Image.Triggers>
-        </Image>
-        
+        <ToolBar Height="40" VerticalAlignment="Top">
+            <Button Command="{Binding SetControlVisibility}" CommandParameter="Clients">
+                <Image Width="40" Height="30" Source="{Binding
+                    Converter={StaticResource my:ImagePathConverter},
+                    ConverterParameter=client}" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding SetControlVisibility}" CommandParameter="Orders">
+                <Image Width="40" Height="30" Source="{Binding
+                    Converter={StaticResource my:ImagePathConverter},
+                    ConverterParameter=order}" />
+            </Button>
+            <Separator />
+            <Button Command="{Binding SetControlVisibility}" CommandParameter="Products">
+                <Image Width="40" Height="30" Source="{Binding
+                    Converter={StaticResource my:ImagePathConverter},
+                    ConverterParameter=product}" />
+            </Button>
+            <Separator />
+            <Button Click="Dialog_Click" CommandParameter="Products">
+                <Image Width="40" Height="30" Source="{Binding  
+                    Converter={StaticResource my:ImagePathConverter}}" />
+            </Button>
+        </ToolBar>
+        <StackPanel Grid.Row="1">
+            <view:ClientsUserControl Visibility="{Binding VisibleControl, Converter={StaticResource my:VisibilityConverter}, ConverterParameter=Clients}"/>
+            <view:OrdersUserControl Visibility="{Binding VisibleControl, Converter={StaticResource my:VisibilityConverter}, ConverterParameter=Orders}"/>
+            <view:ProductsUserControl Visibility="{Binding VisibleControl, Converter={StaticResource my:VisibilityConverter}, ConverterParameter=Products}"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -18,6 +18,11 @@ namespace Lab05.Model
 
         [DataMember]
         public Gender Gender { get; set; }
+
+        public override string ToString()
+        {
+            return FirstName + " " + LastName;
+        }
     }
     [DataContract]
     enum Gender

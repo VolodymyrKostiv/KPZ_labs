@@ -1,45 +1,36 @@
-﻿using Lab05.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lab05.ViewModel
+﻿namespace Lab05.ViewModel
 {
-    class ProductViewModel : ViewModelBase
+    class ProductViewModel : BaseViewModel
     {
-        public Product Product;
-        public ProductViewModel(Product product)
-        {
-            Product = product;
-        }
+        private string _name;
         public string Name
         {
-            get { return Product.Name; }
+            get { return _name; }
             set
             {
-                Product.Name = value;
+                _name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
+        private string _description;
         public string Description
         {
-            get { return Product.Description; }
+            get { return _description; }
             set
             {
-                Product.Description = value;
+                _description = value;
                 OnPropertyChanged(nameof(Description));
             }
         }
 
+        private int _price;
         public int Price
         {
-            get { return Product.Price; }
+            get { return _price; }
             set
             {
-                Product.Price = value;
+                _price = value;
                 OnPropertyChanged(nameof(Price));
             }
         }

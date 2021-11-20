@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
@@ -57,17 +60,33 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Automapper\Mapping.cs" />
+    <Compile Include="Command\AddCommand.cs" />
+    <Compile Include="Converter\ImagePathConverter.cs" />
+    <Compile Include="Converter\VisibilityConverter.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\DataModel.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Serialization\DataSerializer.cs" />
     <Compile Include="ViewModel\ClientViewModel.cs" />
+    <Compile Include="Command\Command.cs" />
     <Compile Include="ViewModel\DataViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\ProductViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="View\ClientUserControl.xaml.cs">
+      <DependentUpon>ClientUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\OrderUserControl.xaml.cs">
+      <DependentUpon>OrderUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PlumbingDialog.xaml.cs">
+      <DependentUpon>PlumbingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ProductUserControl.xaml.cs">
+      <DependentUpon>ProductUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,6 +99,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\ClientUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OrderUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PlumbingDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ProductUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -99,6 +134,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -108,12 +144,21 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Animation\" />
-    <Folder Include="View\" />
+    <Resource Include="Resources\Images\ToolBar\order.png" />
+    <Resource Include="Resources\Images\ToolBar\product.png" />
+    <Resource Include="Resources\Images\ToolBar\client.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\plumbing.png" />
-    <Resource Include="Resources\seller.png" />
+    <Resource Include="Resources\Images\plumbing.png" />
+    <Resource Include="Resources\Images\seller.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Gender\gender_0.png" />
+    <Resource Include="Resources\Images\Gender\gender_1.png" />
+    <Resource Include="Resources\Images\Gender\gender_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Sounds\music.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab05.View;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Lab05
 {
@@ -23,6 +11,19 @@ namespace Lab05
         public MainWindow()
         {
             InitializeComponent();
+
+            //const string fileName = "music.wav";
+            //const string path = "Resources.Sounds";
+            //var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            //var stream = assembly.GetManifestResourceStream(string.Format("{0}.{1}.{2}", assembly.GetName().Name, path, fileName));
+            //var player = new SoundPlayer(stream);
+            //player.Play();
+        }
+
+        private void Dialog_Click(object sender, RoutedEventArgs args)
+        {
+            Window w = new PlumbingDialog();
+            w.Show();
         }
     }
 }

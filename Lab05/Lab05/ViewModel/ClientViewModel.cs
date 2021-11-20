@@ -1,46 +1,38 @@
 ﻿using Lab05.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab05.ViewModel
 {
-    class ClientViewModel : ViewModelBase
+    class ClientViewModel : BaseViewModel
     {
-        public Client Client;
-        public ClientViewModel(Client client) 
-        {
-            Client = client;
-        }
-
+        private string _firstName;
         public string FirstName
         {
-            get { return Client.FirstName; }
+            get { return _firstName; }
             set
             {
-                Client.FirstName = value;
+                _firstName = value;
                 OnPropertyChanged(nameof(FirstName));
             }
         }
 
+        private string _lastName;
         public string LastName
         {
-            get { return Client.LastName; }
+            get { return _lastName; }
             set
             {
-                Client.LastName = value;
+                _lastName = value;
                 OnPropertyChanged(nameof(LastName));
             }
         }
 
+        private Gender _gender;
         public Gender Gender
         {
-            get { return Client.Gender; }
+            get { return _gender; }
             set
             {
-                Client.Gender = value;
+                _gender = value;
                 OnPropertyChanged(nameof(Gender));
             }
         }

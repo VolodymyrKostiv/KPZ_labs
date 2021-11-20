@@ -24,5 +24,10 @@ namespace Lab05.Model
 
         [DataMember]
         public DateTime OrderDateTime { get; set; }
+
+        public void CalculatePrice()
+        {
+            TotalPrice = OrderProduct.Price * ProductAmount;
+        }
     }
 }

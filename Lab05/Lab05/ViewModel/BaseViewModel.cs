@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab05.ViewModel
 {
-    abstract class ViewModelBase : INotifyPropertyChanged
+    abstract class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
