@@ -19,7 +19,9 @@ namespace Lab05.ViewModel
         public void ControlAdd(object args)
         {
             if (args != null)
+            {
                 Clients.Add((Client)args);
+            }
         }
 
         public void ControlVisibility(object args)

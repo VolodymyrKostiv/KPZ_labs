@@ -5,9 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lab05.View" xmlns:Converter="clr-namespace:Lab05.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid ShowGridLines="True">
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="True" ItemsSource="{Binding Path=Products}">
+             d:DesignHeight="500" d:DesignWidth="600">
+    <Grid>
+        <DataGrid Grid.Column="1" IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" 
+                  ItemsSource="{Binding Path=Products, Mode=OneWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="3*" Header="Name"        Binding="{Binding Path=Name}"/>
+                <DataGridTextColumn Width="4*" Header="Description" Binding="{Binding Path=Description}"/>
+                <DataGridTextColumn Width="1*" Header="Price"       Binding="{Binding Path=Price}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </UserControl>

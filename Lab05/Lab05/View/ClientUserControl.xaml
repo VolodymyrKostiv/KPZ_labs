@@ -6,40 +6,64 @@
              xmlns:local="clr-namespace:Lab05.View" 
              xmlns:Converter="clr-namespace:Lab05.Converter"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignWidth="600">
 
     <UserControl.Resources>
         <Converter:ImagePathConverter x:Key="my:ImagePathConverter" />
         <Converter:MultiTextClientConverter x:Key="my:ClientConverter" />
     </UserControl.Resources>
 
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Clients}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First name" Binding="{Binding Path=FirstName, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Last name"  Binding="{Binding Path=LastName, Mode=OneWay}"/>
-                <DataGridTemplateColumn Header="Gender">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Width="30" Height="30" Source="{Binding Gender,
-                                Converter={StaticResource my:ImagePathConverter},
-                                ConverterParameter=Gender}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Orientation="Horizontal"  Grid.Row="1">
-            <Label Content="First name" Width="Auto" />
-            <TextBox  x:Name="FirstNameBlock" Width="100" />
-            <Label Content="Last name" />
-            <TextBox x:Name="LastNameBlock" Width="100"  />
-            <Label Content="Gender" Width="Auto" />
-            <ComboBox x:Name="GenderBlock" Width="Auto" >
+        <StackPanel>
+            <DataGrid Height="350" Grid.Row="0" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Path=Clients, Mode=OneWay}"
+                      ScrollViewer.CanContentScroll="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="2*" Header="First name" Binding="{Binding Path=FirstName}"/>
+                    <DataGridTextColumn Width="2*" Header="Last name"  Binding="{Binding Path=LastName}"/>
+                    <DataGridTemplateColumn Width="1*" Header="Gender">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Width="30" Height="30" Source="{Binding Gender, 
+                                    Converter={StaticResource my:ImagePathConverter}, 
+                                    ConverterParameter=Gender}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Grid Grid.Row="1" Height="Auto">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Label Content="First name" Width="Auto" Grid.Row="1" Grid.Column="1"/>
+            <TextBox x:Name="FirstNameBlock" VerticalContentAlignment="Center" FontFamily="Lato" FontSize="12" Width="Auto" Grid.Row="1" Grid.Column="2"/>
+            <Label Content="Last name" Grid.Row="1" Grid.Column="4"/>
+            <TextBox x:Name="LastNameBlock" VerticalContentAlignment="Center" FontFamily="Lato" FontSize="12" Width="Auto" Grid.Row="1" Grid.Column="5"/>
+            <Label Content="Gender" Width="Auto" Grid.Row="1" Grid.Column="7"/>
+            <ComboBox x:Name="GenderBlock" VerticalContentAlignment="Center" FontFamily="Lato" FontSize="12" Width="Auto" Grid.Row="1" Grid.Column="8">
                 <ComboBoxItem IsSelected="True" >
                     <TextBlock>Male</TextBlock>
                 </ComboBoxItem>
@@ -50,15 +74,15 @@
                     <TextBlock>IL_2_Sturmovik</TextBlock>
                 </ComboBoxItem>
             </ComboBox>
-            <Button Content="Add" Command="{Binding AddClient}">
+            <Button Content="Add" Command="{Binding AddClient}" Grid.Row="1" Grid.Column="10">
                 <Button.CommandParameter>
                     <MultiBinding Converter="{StaticResource my:ClientConverter}">
-                        <Binding ElementName="FirstNameBlock" Path="Text" />
-                        <Binding ElementName="LastNameBlock" Path="Text" />
-                        <Binding ElementName="GenderBlock" Path="SelectedIndex" />
+                        <Binding ElementName="FirstNameBlock"   Path="Text" />
+                        <Binding ElementName="LastNameBlock"    Path="Text" />
+                        <Binding ElementName="GenderBlock"      Path="SelectedIndex" />
                     </MultiBinding>
                 </Button.CommandParameter>
             </Button>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
