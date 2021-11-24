@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lab6_7.DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Lab6_7.DataAccess.Repositories.Realizations.Sql;
 
 namespace Lab6_7.WebApi
 {
@@ -31,15 +32,22 @@ namespace Lab6_7.WebApi
         {
 
             services.AddDbContext<LabDbContext>(opt => opt.UseSqlServer
-                (Configuration.GetConnectionString(""))
+                (Configuration.GetConnectionString("KPZLabConnection"))
             );
+
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lab6_7.WebApi", Version = "v1" });
             });
 
-            services.AddScoped<IContractorRepo, MockContractorsRepo>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //services.AddScoped<IContractorRepo, MockContractorsRepo>();
+
+            services.AddScoped<IContractorRepo, SqlContractorRepo>();
+            services.AddScoped<IProductRepo, SqlProductRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

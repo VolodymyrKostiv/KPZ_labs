@@ -12,7 +12,21 @@ namespace Lab6_7.DataAccess.Repositories
     {
         public LabDbContext(DbContextOptions<LabDbContext> opt) : base(opt)
         {
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder
+            //    .Entity<Contractor>()
+            //    .HasMany(x => x.Contacts);
+
+            //modelBuilder
+            //    .Entity<Contractor>()
+            //    .HasMany(x => x.TechSkills);
+
+            //modelBuilder
+            //    .Entity<Contractor>()
+            //    .HasMany(x => x.SoftSkills);
         }
 
         public DbSet<Contractor> Contractors { get; set; }

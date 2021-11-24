@@ -1,6 +1,8 @@
-﻿using Lab6_7.DataAccess.Models;
+﻿using AutoMapper;
+using Lab6_7.DataAccess.Models;
 using Lab6_7.DataAccess.Repositories.Interfaces;
 using Lab6_7.DataAccess.Repositories.Realizations.Mocks;
+using Lab6_7.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,16 +17,18 @@ namespace Lab6_7.WebApi.Controllers
     {
         private readonly MockContractorsRepo _mock = new MockContractorsRepo();
         private readonly IContractorRepo _contractorRepo;
+        private readonly IMapper _mapper;
 
-        public ContractorsController(IContractorRepo contractorRepo)
+        public ContractorsController(IContractorRepo contractorRepo, IMapper mapper)
         {
             _contractorRepo = contractorRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Contractor>> GetAllContractors()
         {
-            var contractorItems = _mock.GetAllContractors();
+            var contractorItems = _contractorRepo.GetAllContractors();
 
             return Ok(contractorItems);
         }
@@ -32,9 +36,15 @@ namespace Lab6_7.WebApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Contractor> GetContractorById(int id)
         {
-            var contractorItem = _mock.GetContractorById(id);
+            var contractorItem = _contractorRepo.GetContractorById(id);
+            
+            if (contractorItem != null)
+            {
+                var contractorMappedItem = _mapper.Map<ContractorViewModel>(contractorItem);
+                return Ok();
+            }
 
-            return Ok(contractorItem);
+            return NotFound();
         }
     }
 }
