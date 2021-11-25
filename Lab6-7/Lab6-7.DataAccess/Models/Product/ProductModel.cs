@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Lab6_7.DataAccess.Models
+namespace Lab6_7.DataAccess.Models.Product
 {
-    public class Product
+    public class ProductModel
     {
         [Key]
         public int Id { get; set; }

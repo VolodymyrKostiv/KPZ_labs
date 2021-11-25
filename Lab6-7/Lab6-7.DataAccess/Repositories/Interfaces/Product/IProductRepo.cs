@@ -1,15 +1,9 @@
-﻿using Lab6_7.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab6_7.DataAccess.Models.Product;
+using Lab6_7.DataAccess.Repositories.Interfaces.Base;
 
-namespace Lab6_7.DataAccess.Repositories.Interfaces
+namespace Lab6_7.DataAccess.Repositories.Interfaces.Product
 {
-    public interface IProductRepo
+    public interface IProductRepo : IRepositoryBase<ProductModel>
     {
-        IEnumerable<Product> GetAllProducts();
-        Product GetProductById(int id);
     }
 }

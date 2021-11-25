@@ -1,13 +1,8 @@
 ﻿using Lab6_7.DataAccess.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Lab6_7.BLL.Dtos
+namespace Lab6_7.WebApi.ViewModels
 {
-    public class ContractorDTO
+    public class ContractorViewModel
     {
         public int Id { get; set; }
 
@@ -34,5 +29,7 @@ namespace Lab6_7.BLL.Dtos
         public string Experience { get; set; }
 
         public string Education { get; set; }
+
+        public bool IsApproved { get; set; }
     }
 }

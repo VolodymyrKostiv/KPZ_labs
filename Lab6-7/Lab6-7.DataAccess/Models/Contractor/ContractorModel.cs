@@ -1,15 +1,10 @@
 ﻿using Lab6_7.DataAccess.Enums;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Lab6_7.DataAccess.Models
+namespace Lab6_7.DataAccess.Models.Contractor
 {
-    public class Contractor
+    public class ContractorModel
     {
         [Key]
         public int Id { get; set; }

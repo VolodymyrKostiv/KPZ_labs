@@ -1,15 +1,9 @@
-﻿using Lab6_7.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Lab6_7.DataAccess.Models.Contractor;
+using Lab6_7.DataAccess.Repositories.Interfaces.Base;
 
-namespace Lab6_7.DataAccess.Repositories.Interfaces
+namespace Lab6_7.DataAccess.Repositories.Interfaces.Contractor
 {
-    public interface IContractorRepo
+    public interface IContractorRepo : IRepositoryBase<ContractorModel>
     {
-        IEnumerable<Contractor> GetAllContractors();
-        Contractor GetContractorById(int id);
     }
 }

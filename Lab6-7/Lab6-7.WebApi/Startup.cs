@@ -1,21 +1,13 @@
-using Lab6_7.DataAccess.Repositories.Interfaces;
-using Lab6_7.DataAccess.Repositories.Realizations.Mocks;
+using Lab6_7.DataAccess.Repositories;
+using Lab6_7.WebApi.StartupExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Lab6_7.DataAccess.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Lab6_7.DataAccess.Repositories.Realizations.Sql;
 
 namespace Lab6_7.WebApi
 {
@@ -31,8 +23,8 @@ namespace Lab6_7.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<LabDbContext>(opt => opt.UseSqlServer
-                (Configuration.GetConnectionString("KPZLabConnection"))
+            services.AddDbContext<LabDbContext>(opt => opt
+                .UseSqlServer(Configuration.GetConnectionString("KPZLabConnection"))
             );
 
             services.AddControllers();
@@ -44,10 +36,7 @@ namespace Lab6_7.WebApi
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //services.AddScoped<IContractorRepo, MockContractorsRepo>();
-
-            services.AddScoped<IContractorRepo, SqlContractorRepo>();
-            services.AddScoped<IProductRepo, SqlProductRepo>();
+            services.AddDependencyInjection();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

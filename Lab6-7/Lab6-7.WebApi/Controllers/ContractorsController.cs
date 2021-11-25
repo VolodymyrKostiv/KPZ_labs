@@ -1,12 +1,10 @@
 ﻿using AutoMapper;
-using Lab6_7.DataAccess.Models;
-using Lab6_7.DataAccess.Repositories.Interfaces;
-using Lab6_7.DataAccess.Repositories.Realizations.Mocks;
+using Lab6_7.BLL.DTOs.Contractor;
+using Lab6_7.BLL.Interfaces.Contractor;
+using Lab6_7.DataAccess.Models.Contractor;
 using Lab6_7.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Lab6_7.WebApi.Controllers
@@ -15,36 +13,62 @@ namespace Lab6_7.WebApi.Controllers
     [ApiController]
     public class ContractorsController : ControllerBase
     {
-        private readonly MockContractorsRepo _mock = new MockContractorsRepo();
-        private readonly IContractorRepo _contractorRepo;
+        private readonly IContractorService _contractorService;
         private readonly IMapper _mapper;
 
-        public ContractorsController(IContractorRepo contractorRepo, IMapper mapper)
+        public ContractorsController(IContractorService contractorService, IMapper mapper)
         {
-            _contractorRepo = contractorRepo;
+            _contractorService = contractorService;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Contractor>> GetAllContractors()
+        public async Task<IActionResult> GetContractors()
         {
-            var contractorItems = _contractorRepo.GetAllContractors();
+            var contractorItems = await _contractorService.GetAllContractorsAsync();
 
             return Ok(contractorItems);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Contractor> GetContractorById(int id)
+        public async Task<IActionResult> GetContractorById(int id)
         {
-            var contractorItem = _contractorRepo.GetContractorById(id);
-            
+            var contractorItem = await _contractorService.GetContractorAsync(id);
+
             if (contractorItem != null)
             {
-                var contractorMappedItem = _mapper.Map<ContractorViewModel>(contractorItem);
-                return Ok();
+                return Ok(_mapper.Map<ContractorDTO, ContractorViewModel>(contractorItem));
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateContractor(ContractorViewModel contractorViewModel)
+        {
+            var contractorDto = _mapper.Map<ContractorViewModel, ContractorDTO>(contractorViewModel);
+
+            await _contractorService.AddContractorAsync(contractorDto);
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditContractor(ContractorViewModel contractorViewModel)
+        {
+            var contractorDto = _mapper.Map<ContractorViewModel, ContractorDTO>(contractorViewModel);
+
+            await _contractorService.ChangeContractorAsync(contractorDto);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> RemoveContractor(int id)
+        {
+            await _contractorService.DeleteContractorAsync(id);
+
+            return Ok();
         }
     }
 }

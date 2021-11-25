@@ -1,24 +1,20 @@
-﻿using Lab6_7.DataAccess.Models;
-using Lab6_7.DataAccess.Repositories.Interfaces;
+﻿using Lab6_7.DataAccess.Models.Product;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab6_7.DataAccess.Repositories.Realizations.Mocks
 {
-    public class MockProductRepo : IProductRepo
+    public class MockProductRepo //: IProductRepo
     {
-        public IEnumerable<Product> GetAllProducts()
+        public IEnumerable<ProductModel> GetAllProducts()
         {
-            return new List<Product>()
+            return new List<ProductModel>()
             {
-                new Product() { },
+                new ProductModel() { },
             };
         }
 
-        public Product GetProductById(int id)
+        public ProductModel GetProductById(int id)
         {
             throw new NotImplementedException();
         }
