@@ -15,15 +15,6 @@ namespace Lab6_7.DataAccess.Models.Contractor
         [Required(ErrorMessage = "LastName is required"), MaxLength(50, ErrorMessage = "LastName length can't exceed the 50-character limit")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "UserName is required"), MaxLength(50, ErrorMessage = "UserName length can't exceed the 50-character limit")]
-        public string UserName { get; set; }
-
-        [Required(ErrorMessage = "Password is required"), MaxLength(30, ErrorMessage = "Password length can't exceed the 30-character limit")]
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = "Email is required"), EmailAddress(ErrorMessage = "Email address isn't valid")]
-        public string Email { get; set; }
-
         [Range(18, 99, ErrorMessage = "Age must be between 18 and 99")]
         public int Age { get; set; }
 
@@ -39,10 +30,10 @@ namespace Lab6_7.DataAccess.Models.Contractor
         [MaxLength(200, ErrorMessage = "SoftSkills length can't exceed the 200-character limit")]
         public string SoftSkills { get; set; }
 
-        [MaxLength(300, ErrorMessage = "Experience length can't exceed the 200-character limit")]
+        [MaxLength(300, ErrorMessage = "Experience length can't exceed the 300-character limit")]
         public string Experience { get; set; }
 
-        [MaxLength(300, ErrorMessage = "Education length can't exceed the 200-character limit")]
+        [MaxLength(300, ErrorMessage = "Education length can't exceed the 300-character limit")]
         public string Education { get; set; }
     }
 }
