@@ -21,6 +21,12 @@ namespace Lab6_7.WebApi.Controllers
             _mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Get all products
+        /// </summary>
+        /// <returns>List of products</returns>
+        /// <respone code="200">List of all products</respone>
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
@@ -29,6 +35,14 @@ namespace Lab6_7.WebApi.Controllers
             return Ok(productItems);
         }
 
+
+        /// <summary>
+        /// Get product by his Id
+        /// </summary>
+        /// <param name="id">The id of product we want to find</param>
+        /// <returns>Product model</returns>
+        /// <response code="200">Product was found</response>
+        /// <response code="404">Product with such id wasn't found</response>
         [HttpGet("{id}", Name="GetProductById")]
         public async Task<IActionResult> GetProductById(int id)
         {
@@ -42,6 +56,13 @@ namespace Lab6_7.WebApi.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Create new product
+        /// </summary>
+        /// <param name="contractorDTO">New product data</param>
+        /// <returns>Id of created product</returns>
+        /// <response code="201">Product was created on route</response>
+        /// <response code="400">Invalid product's data</response>
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductDTO productDTO)
         {
@@ -63,6 +84,13 @@ namespace Lab6_7.WebApi.Controllers
             return CreatedAtRoute(nameof(GetProductById), new { Id = productDTO.Id }, productViewModel);
         }
 
+        /// <summary>
+        /// Change product's data
+        /// </summary>
+        /// <param name="contractorDTO">New data for product</param>
+        /// <returns>Status code</returns>
+        /// <response code="200">Product was edited successfully</response>
+        /// <response code="400">Invalid data for product (or it wasn't found)</response>
         [HttpPut("{id}")]
         public async Task<IActionResult> EditProduct(ProductDTO productDTO)
         {
@@ -87,6 +115,13 @@ namespace Lab6_7.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Delete product
+        /// </summary>
+        /// <param name="id">The id of product we need to delete</param>
+        /// <returns>Status code</returns>
+        /// <response code="200">Product was deleted successfully</response>
+        /// <response code="400">Product with such id wasn't found</response>
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveProduct(int id)
         {

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Lab6_7.BLL.Services.Contractor
 {
+    /// <summary>
+    /// Implements operations to work with contractor
+    /// </summary>
     public class ContractorService : IContractorService
     {
         private readonly IContractorRepo _contractorRepo;
@@ -22,6 +25,8 @@ namespace Lab6_7.BLL.Services.Contractor
             _mapper = mapper;
         }
 
+
+        /// <inheritdoc/>
         public async Task AddContractorAsync(ContractorDTO contractorDTO)
         {
             var contractor = _mapper.Map<ContractorDTO, ContractorModel>(contractorDTO);
@@ -36,6 +41,7 @@ namespace Lab6_7.BLL.Services.Contractor
             await _contractorRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task ChangeContractorAsync(ContractorDTO contractorDTO)
         {
             var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == contractorDTO.Id);
@@ -50,6 +56,7 @@ namespace Lab6_7.BLL.Services.Contractor
             await _contractorRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task DeleteContractorAsync(ContractorDTO contractorDTO)
         {
             var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == contractorDTO.Id);
@@ -64,6 +71,7 @@ namespace Lab6_7.BLL.Services.Contractor
             await _contractorRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task DeleteContractorAsync(int id)
         {
             var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == id);
@@ -78,6 +86,7 @@ namespace Lab6_7.BLL.Services.Contractor
             await _contractorRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ContractorDTO>> GetAllContractorsAsync()
         {
             var contractors = await _contractorRepo.GetAllAsync();
@@ -85,6 +94,7 @@ namespace Lab6_7.BLL.Services.Contractor
             return _mapper.Map<IEnumerable<ContractorModel>, IEnumerable<ContractorDTO>>(contractors);
         }
 
+        /// <inheritdoc/>
         public async Task<ContractorDTO> GetContractorAsync(int id)
         {
             var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == id);

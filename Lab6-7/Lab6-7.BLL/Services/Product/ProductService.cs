@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Lab6_7.BLL.Services.Product
 {
+    /// <summary>
+    /// Implements operations to work with products
+    /// </summary>
     public class ProductService : IProductService
     {
         private readonly IProductRepo _productRepo;
@@ -22,6 +25,8 @@ namespace Lab6_7.BLL.Services.Product
             _mapper = mapper;
         }
 
+
+        /// <inheritdoc/>
         public async Task AddProductAsync(ProductDTO productDTO)
         {
             var product = _mapper.Map<ProductDTO, ProductModel>(productDTO);
@@ -36,6 +41,7 @@ namespace Lab6_7.BLL.Services.Product
             await _productRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task ChangeProductAsync(ProductDTO productDTO)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == productDTO.Id);
@@ -50,6 +56,7 @@ namespace Lab6_7.BLL.Services.Product
             await _productRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task DeleteProductAsync(int id)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == id);
@@ -64,6 +71,7 @@ namespace Lab6_7.BLL.Services.Product
             await _productRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task DeleteProductAsync(ProductDTO productDTO)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == productDTO.Id);
@@ -78,6 +86,7 @@ namespace Lab6_7.BLL.Services.Product
             await _productRepo.SaveAsync();
         }
 
+        /// <inheritdoc/>
         public async Task<IEnumerable<ProductDTO>> GetAllProductsAsync()
         {
             var products = await _productRepo.GetAllAsync();
@@ -85,6 +94,7 @@ namespace Lab6_7.BLL.Services.Product
             return _mapper.Map<IEnumerable<ProductModel>, IEnumerable<ProductDTO>>(products);
         }
 
+        /// <inheritdoc/>
         public async Task<ProductDTO> GetProductAsync(int id)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == id);
