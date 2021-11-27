@@ -8,12 +8,6 @@ namespace Lab6_7.WebApi.ViewModels
 
         public string LastName { get; set; }
 
-        public string UserName { get; set; }
-
-        public string Password { get; set; }
-
-        public string Email { get; set; }
-
         public int Age { get; set; }
 
         public GenderType Gender { get; set; }
@@ -27,7 +21,5 @@ namespace Lab6_7.WebApi.ViewModels
         public string Experience { get; set; }
 
         public string Education { get; set; }
-
-        public bool IsApproved { get; set; }
     }
 }

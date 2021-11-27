@@ -8,7 +8,7 @@ namespace Lab6_7.BLL.Mapping.Contractor
     {
         public ContractorProfile()
         {
-            CreateMap<ContractorModel, ContractorDTO>().ReverseMap();
+            //CreateMap<ContractorModel, ContractorDTO>().ReverseMap();
         }
     }
 }

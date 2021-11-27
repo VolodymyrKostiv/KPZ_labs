@@ -3,6 +3,7 @@ using Lab6_7.BLL.DTOs.Product;
 using Lab6_7.BLL.Interfaces.Product;
 using Lab6_7.DataAccess.Models.Product;
 using Lab6_7.DataAccess.Repositories.Interfaces.Product;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -25,6 +26,11 @@ namespace Lab6_7.BLL.Services.Product
         {
             var product = _mapper.Map<ProductDTO, ProductModel>(productDTO);
 
+            if (product == null)
+            {
+                throw new ArgumentException("Exception just for fun");
+            }
+
             await _productRepo.CreateAsync(product);
 
             await _productRepo.SaveAsync();
@@ -33,6 +39,11 @@ namespace Lab6_7.BLL.Services.Product
         public async Task ChangeProductAsync(ProductDTO productDTO)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == productDTO.Id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product doesn't exist");
+            }
 
             _productRepo.Update(product);
 
@@ -43,6 +54,11 @@ namespace Lab6_7.BLL.Services.Product
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == id);
 
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product doesn't exist");
+            }
+
             _productRepo.Delete(product);
 
             await _productRepo.SaveAsync();
@@ -51,6 +67,11 @@ namespace Lab6_7.BLL.Services.Product
         public async Task DeleteProductAsync(ProductDTO productDTO)
         {
             var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == productDTO.Id);
+
+            if (product == null)
+            {
+                throw new ArgumentNullException("Product doesn't exist");
+            }
 
             _productRepo.Delete(product);
 

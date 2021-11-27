@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace Lab6_7.WebApi
 {
@@ -33,6 +34,9 @@ namespace Lab6_7.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Lab6_7.WebApi", Version = "v1" });
             });
+
+            Type t = typeof(System.Data.DataSet);
+            string s = t.Assembly.FullName.ToString();
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

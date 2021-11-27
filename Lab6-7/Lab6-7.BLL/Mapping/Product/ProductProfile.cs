@@ -8,7 +8,7 @@ namespace Lab6_7.BLL.Mapping.Product
     {
         public ProductProfile()
         {
-            CreateMap<ProductModel, ProductDTO>().ReverseMap();
+            //CreateMap<ProductModel, ProductDTO>().ReverseMap();
         }
     }
 }

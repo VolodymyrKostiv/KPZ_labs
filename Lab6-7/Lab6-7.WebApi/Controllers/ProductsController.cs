@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
 using Lab6_7.BLL.DTOs.Product;
 using Lab6_7.BLL.Interfaces.Product;
-using Lab6_7.DataAccess.Models.Contractor;
-using Lab6_7.DataAccess.Models.Product;
-using Lab6_7.DataAccess.Repositories.Interfaces.Product;
 using Lab6_7.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace Lab6_7.WebApi.Controllers
@@ -25,15 +22,15 @@ namespace Lab6_7.WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetContractors()
+        public async Task<IActionResult> GetProducts()
         {
             var productItems = await _productService.GetAllProductsAsync();
 
             return Ok(productItems);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetContractorById(int id)
+        [HttpGet("{id}", Name="GetProductById")]
+        public async Task<IActionResult> GetProductById(int id)
         {
             var productItem = await _productService.GetProductAsync(id);
 
@@ -46,29 +43,65 @@ namespace Lab6_7.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContractor(ProductViewModel productViewModel)
+        public async Task<IActionResult> CreateProduct(ProductDTO productDTO)
         {
-            var productDto = _mapper.Map<ProductViewModel, ProductDTO>(productViewModel);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _productService.AddProductAsync(productDTO);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-            await _productService.AddProductAsync(productDto);
+            var productViewModel = _mapper.Map<ProductDTO, ProductViewModel>(productDTO);
 
-            return Ok();
+            return CreatedAtRoute(nameof(GetProductById), new { Id = productDTO.Id }, productViewModel);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditContractor(ProductViewModel productViewModel)
+        public async Task<IActionResult> EditProduct(ProductDTO productDTO)
         {
-            var productDto = _mapper.Map<ProductViewModel, ProductDTO>(productViewModel);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
 
-            await _productService.ChangeProductAsync(productDto);
+            try
+            {
+                await _productService.ChangeProductAsync(productDTO);
+            }
+            catch(ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveContractor(int id)
+        public async Task<IActionResult> RemoveProduct(int id)
         {
-            await _productService.DeleteProductAsync(id);
+            try
+            {
+                await _productService.DeleteProductAsync(id);
+            }
+            catch (ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }

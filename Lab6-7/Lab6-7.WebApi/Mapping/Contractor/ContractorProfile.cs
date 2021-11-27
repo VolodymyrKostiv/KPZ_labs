@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Lab6_7.BLL.DTOs.Contractor;
+using Lab6_7.DataAccess.Models.Contractor;
 using Lab6_7.WebApi.ViewModels;
 
 namespace Lab6_7.WebApi.Mapping
@@ -9,6 +10,7 @@ namespace Lab6_7.WebApi.Mapping
         public ContractorProfile()
         {
             CreateMap<ContractorDTO, ContractorViewModel>().ReverseMap();
+            CreateMap<ContractorModel, ContractorDTO>().ReverseMap();
         }
     }
 }

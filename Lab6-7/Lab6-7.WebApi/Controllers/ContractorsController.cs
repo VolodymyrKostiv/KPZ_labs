@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using Lab6_7.BLL.DTOs.Contractor;
 using Lab6_7.BLL.Interfaces.Contractor;
-using Lab6_7.DataAccess.Models.Contractor;
 using Lab6_7.WebApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace Lab6_7.WebApi.Controllers
@@ -30,7 +29,7 @@ namespace Lab6_7.WebApi.Controllers
             return Ok(contractorItems);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetContractorById")]
         public async Task<IActionResult> GetContractorById(int id)
         {
             var contractorItem = await _contractorService.GetContractorAsync(id);
@@ -44,29 +43,65 @@ namespace Lab6_7.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateContractor(ContractorViewModel contractorViewModel)
+        public async Task<IActionResult> CreateContractor(ContractorDTO contractorDTO)
         {
-            var contractorDto = _mapper.Map<ContractorViewModel, ContractorDTO>(contractorViewModel);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
+            try
+            {
+                await _contractorService.AddContractorAsync(contractorDTO);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-            await _contractorService.AddContractorAsync(contractorDto);
+            var contractorModel = _mapper.Map<ContractorDTO, ContractorViewModel>(contractorDTO);
 
-            return Ok();
+            return CreatedAtRoute(nameof(GetContractorById), new { Id = contractorDTO.Id }, contractorModel);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditContractor(ContractorViewModel contractorViewModel)
+        public async Task<IActionResult> EditContractor(ContractorDTO contractorDTO)
         {
-            var contractorDto = _mapper.Map<ContractorViewModel, ContractorDTO>(contractorViewModel);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid data");
+            }
 
-            await _contractorService.ChangeContractorAsync(contractorDto);
+            try
+            {
+                await _contractorService.ChangeContractorAsync(contractorDTO);
+            }
+            catch (ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
-            return Ok();
+            return Ok();           
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveContractor(int id)
         {
-            await _contractorService.DeleteContractorAsync(id);
+            try
+            {
+                await _contractorService.DeleteContractorAsync(id);
+            }
+            catch (ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch
+            {
+                return BadRequest();
+            }
 
             return Ok();
         }
