@@ -91,7 +91,7 @@ namespace Lab6_7.WebApi.Controllers
         /// <response code="400">Invalid data for contractor (or it wasn't found)</response>
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditContractor(ContractorDTO contractorDTO)
+        public async Task<IActionResult> EditContractor(int id, ContractorDTO contractorDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -100,7 +100,7 @@ namespace Lab6_7.WebApi.Controllers
 
             try
             {
-                await _contractorService.ChangeContractorAsync(contractorDTO);
+                await _contractorService.ChangeContractorAsync(id, contractorDTO);
             }
             catch (ArgumentNullException exc)
             {

@@ -36,20 +36,37 @@ namespace Lab6_7.BLL.Services.Product
                 throw new ArgumentException("Exception just for fun");
             }
 
+            if (!DatesAreValid(productDTO))
+            {
+                throw new ArgumentException("Start date is bigger than end date");
+            }
+
             await _productRepo.CreateAsync(product);
 
             await _productRepo.SaveAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task ChangeProductAsync(ProductDTO productDTO)
+        private bool DatesAreValid(ProductDTO productDTO)
         {
-            var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == productDTO.Id);
+            return productDTO.StartDate < productDTO.EndDate; 
+        }
+
+        /// <inheritdoc/>
+        public async Task ChangeProductAsync(int id, ProductDTO productDTO)
+        {
+            var product = await _productRepo.GetFirstOrDefaultAsync(c => c.Id == id);
 
             if (product == null)
             {
-                throw new ArgumentNullException("Product doesn't exist");
+                throw new ArgumentNullException("Product doesnt exist");
             }
+
+            if (!DatesAreValid(productDTO))
+            {
+                throw new ArgumentException("Start date is bigger than end date");
+            }
+
+            productDTO.Id = id;
 
             _productRepo.Update(product);
 
@@ -63,7 +80,7 @@ namespace Lab6_7.BLL.Services.Product
 
             if (product == null)
             {
-                throw new ArgumentNullException("Product doesn't exist");
+                throw new ArgumentNullException("Product doesnt exist");
             }
 
             _productRepo.Delete(product);
@@ -78,7 +95,7 @@ namespace Lab6_7.BLL.Services.Product
 
             if (product == null)
             {
-                throw new ArgumentNullException("Product doesn't exist");
+                throw new ArgumentNullException("Product doesnt exist");
             }
 
             _productRepo.Delete(product);

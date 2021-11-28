@@ -9,7 +9,7 @@ namespace Lab6_7.DataAccess.Repositories.Realizations.Base
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private LabDbContext _dbContext;
+        private readonly LabDbContext _dbContext;
 
         private IProductRepo _productRepo;
         private IContractorRepo _contractorRepo;

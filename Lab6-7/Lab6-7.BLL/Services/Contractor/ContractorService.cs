@@ -42,14 +42,16 @@ namespace Lab6_7.BLL.Services.Contractor
         }
 
         /// <inheritdoc/>
-        public async Task ChangeContractorAsync(ContractorDTO contractorDTO)
+        public async Task ChangeContractorAsync(int id, ContractorDTO contractorDTO)
         {
-            var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == contractorDTO.Id);
+            var contractor = await _contractorRepo.GetFirstOrDefaultAsync(c => c.Id == id);
 
             if (contractor == null)
             {
-                throw new ArgumentNullException("Contractor doesn't exist");
+                throw new ArgumentNullException("Contractor doesnt exist");
             }
+
+            contractorDTO.Id = id;
 
             _contractorRepo.Update(contractor);
 
@@ -63,7 +65,7 @@ namespace Lab6_7.BLL.Services.Contractor
 
             if (contractor == null)
             {
-                throw new ArgumentNullException("Contractor doesn't exist");
+                throw new ArgumentNullException("Contractor doesnt exist");
             }
 
             _contractorRepo.Delete(contractor);
@@ -78,7 +80,7 @@ namespace Lab6_7.BLL.Services.Contractor
 
             if (contractor == null)
             {
-                throw new ArgumentNullException("Contractor doesn't exist");
+                throw new ArgumentNullException("Contractor doesnt exist");
             }
 
             _contractorRepo.Delete(contractor);

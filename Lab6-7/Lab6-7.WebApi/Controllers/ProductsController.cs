@@ -59,7 +59,7 @@ namespace Lab6_7.WebApi.Controllers
         /// <summary>
         /// Create new product
         /// </summary>
-        /// <param name="contractorDTO">New product data</param>
+        /// <param name="productDTO">New product data</param>
         /// <returns>Id of created product</returns>
         /// <response code="201">Product was created on route</response>
         /// <response code="400">Invalid product's data</response>
@@ -74,6 +74,10 @@ namespace Lab6_7.WebApi.Controllers
             {
                 await _productService.AddProductAsync(productDTO);
             }
+            catch (ArgumentException exc)
+            {
+                return BadRequest(exc.Message);
+            }
             catch
             {
                 return BadRequest();
@@ -87,12 +91,12 @@ namespace Lab6_7.WebApi.Controllers
         /// <summary>
         /// Change product's data
         /// </summary>
-        /// <param name="contractorDTO">New data for product</param>
+        /// <param name="productDTO">New data for product</param>
         /// <returns>Status code</returns>
         /// <response code="200">Product was edited successfully</response>
         /// <response code="400">Invalid data for product (or it wasn't found)</response>
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditProduct(ProductDTO productDTO)
+        public async Task<IActionResult> EditProduct(int id, ProductDTO productDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -101,9 +105,13 @@ namespace Lab6_7.WebApi.Controllers
 
             try
             {
-                await _productService.ChangeProductAsync(productDTO);
+                await _productService.ChangeProductAsync(id, productDTO);
             }
             catch(ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch (ArgumentException exc)
             {
                 return BadRequest(exc.Message);
             }
@@ -130,6 +138,10 @@ namespace Lab6_7.WebApi.Controllers
                 await _productService.DeleteProductAsync(id);
             }
             catch (ArgumentNullException exc)
+            {
+                return BadRequest(exc.Message);
+            }
+            catch (ArgumentException exc)
             {
                 return BadRequest(exc.Message);
             }

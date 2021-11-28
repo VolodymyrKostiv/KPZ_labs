@@ -29,7 +29,7 @@
             <response code="201">Contractor was created on route</response>
             <response code="400">Invalid contactor's data</response>
         </member>
-        <member name="M:Lab6_7.WebApi.Controllers.ContractorsController.EditContractor(Lab6_7.BLL.DTOs.Contractor.ContractorDTO)">
+        <member name="M:Lab6_7.WebApi.Controllers.ContractorsController.EditContractor(System.Int32,Lab6_7.BLL.DTOs.Contractor.ContractorDTO)">
             <summary>
             Change contactor's data
             </summary>
@@ -67,16 +67,16 @@
             <summary>
             Create new product
             </summary>
-            <param name="contractorDTO">New product data</param>
+            <param name="productDTO">New product data</param>
             <returns>Id of created product</returns>
             <response code="201">Product was created on route</response>
             <response code="400">Invalid product's data</response>
         </member>
-        <member name="M:Lab6_7.WebApi.Controllers.ProductsController.EditProduct(Lab6_7.BLL.DTOs.Product.ProductDTO)">
+        <member name="M:Lab6_7.WebApi.Controllers.ProductsController.EditProduct(System.Int32,Lab6_7.BLL.DTOs.Product.ProductDTO)">
             <summary>
             Change product's data
             </summary>
-            <param name="contractorDTO">New data for product</param>
+            <param name="productDTO">New data for product</param>
             <returns>Status code</returns>
             <response code="200">Product was edited successfully</response>
             <response code="400">Invalid data for product (or it wasn't found)</response>

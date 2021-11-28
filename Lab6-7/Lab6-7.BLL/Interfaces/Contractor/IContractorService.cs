@@ -34,7 +34,7 @@ namespace Lab6_7.BLL.Interfaces.Contractor
         /// </summary>
         /// <param name="contractorDTO">The new data for contractor</param>
         /// <returns>Nothing</returns>
-        Task ChangeContractorAsync(ContractorDTO contractorDTO);
+        Task ChangeContractorAsync(int id, ContractorDTO contractorDTO);
 
 
         /// <summary>

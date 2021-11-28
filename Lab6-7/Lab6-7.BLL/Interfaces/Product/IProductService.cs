@@ -34,7 +34,7 @@ namespace Lab6_7.BLL.Interfaces.Product
         /// </summary>
         /// <param name="productDTO">The new data for product</param>
         /// <returns>Nothing</returns>
-        Task ChangeProductAsync(ProductDTO productDTO);
+        Task ChangeProductAsync(int id, ProductDTO productDTO);
 
         /// <summary>
         /// Asynchronously delete chosen product
