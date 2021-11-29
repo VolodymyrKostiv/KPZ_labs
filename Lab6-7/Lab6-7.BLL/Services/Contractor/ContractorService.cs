@@ -51,9 +51,10 @@ namespace Lab6_7.BLL.Services.Contractor
                 throw new ArgumentNullException("Contractor doesnt exist");
             }
 
-            contractorDTO.Id = id;
+            var contractorToEdit = _mapper.Map<ContractorDTO, ContractorModel>(contractorDTO);
+            contractorToEdit.Id = id;
 
-            _contractorRepo.Update(contractor);
+            _contractorRepo.Update(contractorToEdit);
 
             await _contractorRepo.SaveAsync();
         }

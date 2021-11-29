@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Lab6_7.WebApi</RootNamespace>
+    <UserSecretsId>5ca24f6b-c16c-41d8-b2ae-22bfa5d6dace</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

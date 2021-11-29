@@ -4,6 +4,8 @@ namespace Lab6_7.WebApi.ViewModels
 {
     public class ProductViewModel
     {
+        public string Id { get; set; }
+
         public int Price { get; set; }
 
         public DateTime StartDate { get; set; }

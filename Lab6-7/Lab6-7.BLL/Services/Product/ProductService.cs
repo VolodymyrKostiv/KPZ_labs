@@ -66,9 +66,10 @@ namespace Lab6_7.BLL.Services.Product
                 throw new ArgumentException("Start date is bigger than end date");
             }
 
-            productDTO.Id = id;
+            var productToEdit = _mapper.Map<ProductDTO, ProductModel>(productDTO);
+            productToEdit.Id = id;
 
-            _productRepo.Update(product);
+            _productRepo.Update(productToEdit);
 
             await _productRepo.SaveAsync();
         }
